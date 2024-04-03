@@ -15,6 +15,7 @@ class Chirp extends Model
         'message',
     ];
 
+    // Declare relationship A CHIRP belongs to a USER
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);

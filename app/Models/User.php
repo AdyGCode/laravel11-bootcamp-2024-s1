@@ -46,6 +46,7 @@ class User extends Authenticatable
         ];
     }
 
+    // Create a relationship of a USER has many CHIRPS
     public function chirps():HasMany
     {
         return $this->hasMany(Chirp::class);
