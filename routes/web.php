@@ -24,9 +24,10 @@ Route::middleware('auth')->group(function () {
  * POST         /chirps                 store       chirps.store
  * GET          /chirps/{chirp}/edit    edit        chirps.edit
  * PUT/PATCH    /chirps/{chirp}         update      chirps.update
+ * DELETE       /chirps/{chirp}         destroy     chirps.destroy
  */
 Route::resource('chirps', ChirpController::class)
-    ->only(['index','store','edit','update'])
-    ->middleware(['auth','verified']);
+    ->only(['index', 'store', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

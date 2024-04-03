@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @method static whereNot(string $string, $user_id)
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;

@@ -14,12 +14,12 @@ class ChirpController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(): View
     {
         $user = auth()->user()->name;
         $greeting = "Hello, {$user}.";
         $chirps = Chirp::with('user')->latest()->get();
-        return view('chirps.index', compact(['chirps','greeting'])); //
+        return view('chirps.index', compact(['chirps', 'greeting'])); //
         // resources/views/chirps/index.blade.php
     }
 
@@ -34,10 +34,10 @@ class ChirpController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'message'=>[
+            'message' => [
                 'required',
                 'string',
                 'min:5',
@@ -62,20 +62,20 @@ class ChirpController extends Controller
      */
     public function edit(Chirp $chirp): View
     {
-        Gate::authorize('update',$chirp);
+        Gate::authorize('update', $chirp);
 
-        return view('chirps.edit', ['chirp'=>$chirp,]);
+        return view('chirps.edit', ['chirp' => $chirp,]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Chirp $chirp):RedirectResponse
+    public function update(Request $request, Chirp $chirp): RedirectResponse
     {
-        Gate::authorize('update',$chirp);
+        Gate::authorize('update', $chirp);
 
         $validated = $request->validate([
-            'message'=>[
+            'message' => [
                 'required',
                 'string',
                 'min:5',
@@ -91,8 +91,10 @@ class ChirpController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chirp $chirp)
+    public function destroy(Chirp $chirp): RedirectResponse
     {
-        //
+        Gate::authorize('delete', $chirp);
+        $chirp->delete();
+        return redirect(route('chirps.index'));
     }
 }
