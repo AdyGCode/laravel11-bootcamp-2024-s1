@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
 });
 
 /**
+ * Table of the HTTP VERBs, the ENDPOINT URIs, CONTROLLER ACTIONs and the ROUTEs
+ * interpreted when using route('ROUTE_NAME') in code.
+ *
  * Verb         URI                     Action      Route Name
  * GET          /chirps                 index       chirps.index
  * POST         /chirps                 store       chirps.store

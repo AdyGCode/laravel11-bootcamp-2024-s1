@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="max-w-2xl mx-auto p-4 md:p-6 lg:p-8">
+    <section class="max-w-2xl mx-auto p-2 ">
         <h4 class="bg-gray-400 text-black p-2 my-4 rounded-lg">
             {{ $greeting }}
         </h4>
@@ -10,7 +10,7 @@
             <textarea name="message" id="message"
                       cols="30" rows="5"
                       placeholder="{{ __('What\'s on your mind...') }}"
-                      class="block w-fill border-gray-300
+                      class="w-full border-gray-300
                              focus:border-indigo-300
                              focus:ring focus:ring-indigo-200
                              focus:ring-opacity-50
@@ -21,7 +21,8 @@
         </form>
     </section>
 
-    <div class="max-w-2xl mx-auto mt-6 bg-white shadow-sm rounded-lg divide-y">
+    <div class="max-w-2xl mx-auto p-2 mt-6 bg-white shadow-sm rounded-lg
+    divide-y">
         @foreach($chirps as $chirp)
             <section class="p-6 flex space-x-8">
                 <p class="text-6xl bg-green-500 text-black rounded-full
