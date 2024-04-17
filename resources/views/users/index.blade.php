@@ -4,6 +4,14 @@
             <h2>User Management</h2>
         </header>
 
+        <section id="Messages">
+            @if(Session::has('success'))
+                <div class="p-4 border-green-500 bg-green-100 text-green-700 rounded-lg">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+        </section>
+
         <section>
             <header class="flex flex-row justify-between">
                 <h3>

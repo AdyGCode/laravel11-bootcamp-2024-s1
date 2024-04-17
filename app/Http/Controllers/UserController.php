@@ -54,7 +54,8 @@ class UserController extends Controller
             ]
         );
 
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))
+            ->withSuccess("Added '{$user->name}'.");
 
     }
 
@@ -100,7 +101,9 @@ class UserController extends Controller
             ]
         );
 
-        return redirect(route('users.index'));
+        return redirect()
+            ->back()
+            ->withSuccess("Updated {$user->name}.");
     }
 
     /**
@@ -108,9 +111,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $oldUser = $user;
         $user->delete();
 
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))
+            ->withSuccess("Deleted {$oldUser->name}.");
 
     }
 
@@ -125,14 +130,19 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->find($id);
         $user->restore();
-        return redirect(route('users.trash'));
+        return redirect()
+            ->back()
+            ->withSuccess("Restored {$user->name}.");
 
     }
 
     public function remove(string $id):RedirectResponse
     {
         $user = User::onlyTrashed()->find($id);
+        $oldUser=$user;
         $user->forceDelete();
-        return redirect(route('users.trash'));
+        return redirect()
+            ->back()
+            ->withSuccess("Permanently Removed {$oldUser->name}.");
     }
 }

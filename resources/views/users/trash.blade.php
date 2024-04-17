@@ -4,6 +4,15 @@
             <h2>User Management</h2>
         </header>
 
+
+        <section id="messages">
+            @if(Session::has('success'))
+                <div class="p-4 border-green-500 bg-green-100 text-green-700">
+                    {{Session::get('success')}}
+                </div>
+            @endif
+        </section>
+
         <section>
             <header class="flex flex-row justify-between">
                 <h3>
@@ -13,6 +22,8 @@
                 <a href="{{ route('users.index') }}">
                     {{ $users->count() }} Deleted users</a>
             </header>
+
+
             <div class="w-full">
                 <table class="table w-full">
                     <thead>
