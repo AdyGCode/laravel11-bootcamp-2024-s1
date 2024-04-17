@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $trashedCount = User::onlyTrashed()->latest()->get()->count();
         $users = User::paginate(3);
-        return view('users.index', compact(['users','trashedCount',]));
+        return view('users.index', compact(['users', 'trashedCount',]));
     }
 
     /**
@@ -36,13 +37,22 @@ class UserController extends Controller
     {
         // Validate
         $rules = [
-            'name'=>['string','required','min:3','max:128'],
-            'email'=>['required','email:rfc'],
-            'password'=>['required','confirmed',
-                Password::min(4)->letters()
-//                    ->uncompromised()
-                ,
-                ],
+            'name' => [
+                'string',
+                'required',
+                'min:3',
+                'max:128'
+            ],
+            'email' => [
+                'required',
+                'email:rfc',
+                'unique:users' // make sure the email is not re-used
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(4)->letters(), // ->uncompromised(),
+            ],
         ];
         $validated = $request->validate($rules);
 
@@ -70,7 +80,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user):View
+    public function edit(User $user): View
     {
         return view('users.edit', compact(['user']));
     }
@@ -78,27 +88,38 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,User $user)
+    public function update(Request $request, User $user)
     {
 // Validate
         $rules = [
-            'name'=>['string','required','min:3','max:128'],
-            'email'=>['required','email:rfc'],
-            'password'=>['required','confirmed',
-                Password::min(4)->letters()
-//                    ->uncompromised()
-                ,
+            'name' => [
+                'string',
+                'required',
+                'min:3',
+                'max:128'
+            ],
+            'email' => [
+                'required',
+                'email:rfc',
+                Rule::unique('users')->ignore($user),
+            ],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(4)->letters(), // ->uncompromised(),
             ],
         ];
         $validated = $request->validate($rules);
 
         // Store
-        $user ->update([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => $validated['password'],
-                'updated_at'=>now(),
-            ]
+        $user->update(
+            $validated
+//            [
+//                'name' => $validated['name'],
+//                'email' => $validated['email'],
+//                'password' => $validated['password'],
+//                'updated_at' => now(),
+//            ]
         );
 
         return redirect()
@@ -126,7 +147,7 @@ class UserController extends Controller
         return view('users.trash', compact(['users',]));
     }
 
-    public function restore(string $id):RedirectResponse
+    public function restore(string $id): RedirectResponse
     {
         $user = User::onlyTrashed()->find($id);
         $user->restore();
@@ -136,10 +157,10 @@ class UserController extends Controller
 
     }
 
-    public function remove(string $id):RedirectResponse
+    public function remove(string $id): RedirectResponse
     {
         $user = User::onlyTrashed()->find($id);
-        $oldUser=$user;
+        $oldUser = $user;
         $user->forceDelete();
         return redirect()
             ->back()
