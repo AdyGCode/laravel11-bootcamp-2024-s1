@@ -10,8 +10,8 @@
                     Users
                 </h3>
                 <a href="{{ route('users.create') }}">Add New User</a>
-                <a href="{{ route('users.trash') }}">
-                    {{ $trashedCount }} Deleted users</a>
+                <a href="{{ route('users.index') }}">
+                    {{ $users->count() }} Deleted users</a>
             </header>
             <div class="w-full">
                 <table class="table w-full">
@@ -30,21 +30,17 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->updated_at }}</td>
                             <td>
-                                <a href="{{ route('users.show', $user) }}">
-                                    View
+                                <a href="{{ route('users.trash-restore', $user) }}">
+                                    Restore
                                 </a>
 
-                                <a href="{{ route('users.edit', $user) }}">
-                                    Edit
-                                </a>
-
-                                <form action="{{ route('users.destroy', $user) }}"
+                                <form action="{{ route('users.trash-remove', $user) }}"
                                       method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit"
                                             class="rounded border bg-gray-200">
-                                        Delete
+                                        Remove!
                                     </button>
                                 </form>
                             </td>

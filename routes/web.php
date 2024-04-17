@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,7 +34,16 @@ Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified'],);
 
-Route::resource('users', \App\Http\Controllers\UserController::class)
+Route::get('users/trash', [UserController::class, 'trash'])
+    ->middleware(['auth','verified',])->name('users.trash');
+
+Route::get('users/{user}/trash/restore', [UserController::class, 'restore'])
+    ->middleware(['auth','verified',])->name('users.trash-restore');
+
+Route::delete('users/{user}/trash/remove', [UserController::class, 'remove'])
+    ->middleware(['auth','verified',])->name('users.trash-remove');
+
+Route::resource('users', UserController::class)
     ->middleware(['auth','verified',]);
 
 
