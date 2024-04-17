@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -30,7 +32,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate
+        $rules = [
+            'name'=>['string','required','min:3','max:128'],
+            'email'=>['required','email:rfc'],
+            'password'=>['required','confirmed',
+                Password::min(4)->letters()
+//                    ->uncompromised()
+                ,
+                ],
+        ];
+        $validated = $request->validate($rules);
+
+        // Store
+        $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => $validated['password'],
+            ]
+        );
+
+        return redirect(route('users.index'));
+
     }
 
     /**

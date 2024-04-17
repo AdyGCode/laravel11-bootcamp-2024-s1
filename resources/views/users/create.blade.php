@@ -6,18 +6,29 @@
         </header>
 
         <section>
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+
             <form action="{{ route('users.store') }}"
                   method="POST"
-                  class="grid grid-cols-2 max-w-3xl gap-4">
+                  class="max-w-3xl gap-4">
 
                 @csrf
-                <label for="Name">Name:</label>
-                <input type="text"
-                       id="Name"
-                       name="name"
-                       value="{{ old('name') }}"
-                       placeholder="Enter user name"
-                       class="border-gray-200">
+                <div>
+                    <label for="Name">Name:</label>
+                    <input type="text"
+                           id="Name"
+                           name="name"
+                           value="{{ old('name') }}"
+                           placeholder="Enter user name"
+                           class="border-gray-200">
+                    @error("name")
+                    <p class="small text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+
                 <label for="Email">Email:</label>
                 <input type="text"
                        id="Email"
@@ -25,12 +36,14 @@
                        value="{{ old('email') }}"
                        placeholder="Enter email address"
                        class="border-gray-200">
+
                 <label for="Password">Password:</label>
                 <input type="text"
                        id="Password"
                        name="password"
                        placeholder="Enter password"
                        class="border-gray-200">
+
                 <label for="Confirm">Confirm Password:</label>
                 <input type="password"
                        id="Confirm"
