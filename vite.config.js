@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
+    server: {
+		host: 'laravel11-bootcamp-2024-s1.test',
+	},
     plugins: [
         laravel({
             input: [

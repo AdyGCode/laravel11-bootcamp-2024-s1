@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -17,8 +18,8 @@ class UserController extends Controller
      */
     public function index(): View
     {
+        $users = User::paginate(10);
         $trashedCount = User::onlyTrashed()->latest()->get()->count();
-        $users = User::paginate(3);
         return view('users.index', compact(['users', 'trashedCount',]));
     }
 
@@ -33,26 +34,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // Validate
         $rules = [
-            'name' => [
-                'string',
-                'required',
-                'min:3',
-                'max:128'
-            ],
-            'email' => [
-                'required',
-                'email:rfc',
-                'unique:users' // make sure the email is not re-used
-            ],
-            'password' => [
-                'required',
-                'confirmed',
-                Password::min(4)->letters(), // ->uncompromised(),
-            ],
+            'name' => ['string', 'required', 'min:3', 'max:128'],
+            'email' => ['required', 'email:rfc', 'unique:users'],
+            'password' => ['required', 'confirmed', Password::min(4)->letters(),],
         ];
         $validated = $request->validate($rules);
 
@@ -60,13 +48,12 @@ class UserController extends Controller
         $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
-                'password' => $validated['password'],
+                'password' => Hash::make($validated['password']),
             ]
         );
 
         return redirect(route('users.index'))
             ->withSuccess("Added '{$user->name}'.");
-
     }
 
     /**
@@ -90,6 +77,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        if (empty($request['password'])) {
+            unset($request['password']);
+            unset($request['password_confirmation']);
+        }
 // Validate
         $rules = [
             'name' => [
@@ -104,10 +96,15 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($user),
             ],
             'password' => [
-                'required',
+                'sometimes',
                 'confirmed',
                 Password::min(4)->letters(), // ->uncompromised(),
             ],
+            'password_confirmation' => [
+                'sometimes',
+                'required_unless:password,null',
+            ],
+
         ];
         $validated = $request->validate($rules);
 
@@ -122,8 +119,7 @@ class UserController extends Controller
 //            ]
         );
 
-        return redirect()
-            ->back()
+        return redirect(route('users.show', $user))
             ->withSuccess("Updated {$user->name}.");
     }
 
@@ -143,7 +139,7 @@ class UserController extends Controller
 
     public function trash()
     {
-        $users = User::onlyTrashed()->paginate();
+        $users = User::onlyTrashed()->paginate(5);
         return view('users.trash', compact(['users',]));
     }
 

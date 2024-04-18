@@ -34,17 +34,21 @@ Route::resource('chirps', ChirpController::class)
     ->only(['index', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified'],);
 
-Route::get('users/trash', [UserController::class, 'trash'])
-    ->middleware(['auth','verified',])->name('users.trash');
-
-Route::get('users/{user}/trash/restore', [UserController::class, 'restore'])
-    ->middleware(['auth','verified',])->name('users.trash-restore');
-
-Route::delete('users/{user}/trash/remove', [UserController::class, 'remove'])
-    ->middleware(['auth','verified',])->name('users.trash-remove');
-
-Route::resource('users', UserController::class)
-    ->middleware(['auth','verified',]);
 
 
-require __DIR__ . '/auth.php';
+Route::middleware(['auth', 'verified',])->group(function () {
+    Route::get('users/trash', [UserController::class, 'trash'])
+        ->name('users.trash');
+
+    Route::get('users/{user}/trash/restore', [UserController::class, 'restore'])
+        ->name('users.trash-restore');
+
+    Route::delete('users/{user}/trash/remove', [UserController::class, 'remove'])
+        ->name('users.trash-remove');
+
+    Route::resource('users', UserController::class);
+
+});
+
+
+require __DIR__.'/auth.php';
