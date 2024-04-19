@@ -1,4 +1,4 @@
-<footer class="mt-8 w-full min-h-36 bg-neutral-800 text-neutral-300 sticky text-sm">
+<footer class="px-8 mt-8 w-full min-h-36 bg-neutral-800 text-neutral-300 sticky text-sm">
     <div class="container grid grid-cols-1 md:grid-cols-3 mx-auto py-4 space-x-8">
         <section class="col-span-1 flex flex-col justify-start gap-2">
             <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
@@ -14,8 +14,7 @@
                 <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1"
                    target="_blank" rel="license noopener noreferrer"
                    class="space-x-0.5 hover:text-neutral-200 underline underline-offset-2">
-                    CC BY-SA 4.0 International<i class="text-md fa-brands fa-creative-commons px-1"></i><i
-                        class="text-md fa-brands fa-creative-commons-by pr-1"></i><i
+                    CC BY-SA 4.0 International <i class="text-md fa-brands fa-creative-commons px-1"></i><i class="text-md fa-brands fa-creative-commons-by pr-1"></i><i
                         class="text-md fa-brands fa-creative-commons-sa pr-1"></i></a>
             </p>
         </section>

@@ -38,17 +38,17 @@
     <div class="grow max-w-7xl mx-auto
                 bg-white dark:bg-gray-900
                 border-gray-400 dark:border-gray-600
-                rounded rounded-lg
-                shadow shadow-lg ">
+                rounded
+                shadow  ">
         {{ $slot }}
     </div>
 </main>
 
 <!-- Page Heading -->
-@if (isset($header))
+@if (isset($footer))
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-            {{ $header }}
+            {{ $footer }}
         </div>
     </header>
 @endif
