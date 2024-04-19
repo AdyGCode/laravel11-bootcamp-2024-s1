@@ -36,12 +36,14 @@ class UserSeeder extends Seeder
 
             [
                 'id' => null, 'name' => "Bea O'Problem", 'email' => 'Bea.OProblem@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('3454325326654665gfdgt'), 'created_at' =>
+                now(),
             ],
 
             [
                 'id' => null, 'name' => 'Oscar Nomination', 'email' => 'Oscar.Nomination@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('hguishgr78enytigruighvihgru'), 'created_at' =>
+                now(),
             ],
 
             [
@@ -51,27 +53,28 @@ class UserSeeder extends Seeder
 
             [
                 'id' => null, 'name' => 'Barbie Dahl', 'email' => 'Barbie.Dahl@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('tyruisytui4ytuiv7tv7tv744'), 'created_at' =>
+                now(),
             ],
 
                         [
                 'id' => null, 'name' => 'Tim Burr', 'email' => 'Tim.Burr@example.com', 'email_verified_at' => null,
-                'password' => Hash::make('Password1'), 'created_at' => now(),
+                'password' => Hash::make('yarv4una7y74ayt74avynt7a4y7ty4v'), 'created_at' => now(),
             ],
             [
                 'id' => null, 'name' => 'Dwight House', 'email' => 'Dwight.House@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('yv78br84vtcr84cgf4gf'), 'created_at' => now(),
             ],
 
 
             [
                 'id' => null, 'name' => 'Isadora Bull', 'email' => 'Isadora.Bull@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('vymn478btr8vrit4w'), 'created_at' => now(),
             ],
 
             [
                 'id' => null, 'name' => "Annie O'Problem", 'email' => 'Annie.OProblem@example.com',
-                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+                'email_verified_at' => null, 'password' => Hash::make('vyn4uizoyt478vt478'), 'created_at' => now(),
             ],
 
         ];
