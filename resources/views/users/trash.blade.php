@@ -30,6 +30,33 @@
                         <i class="fa fa-users text-lg"></i>
                         {{ __('Users') }}
                     </a>
+                    <form class="flex flex-row gap-2 items-center justify-end"
+                          action="{{ route('users.trash-recover') }}"
+                          method="post">
+                        @CSRF
+                        <button type="submit"
+                                class="p-2 px-4  text-center rounded-md
+                                   text-blue-600 hover:text-blue-200 dark:hover:text-blue-900
+                                   bg-blue-200 dark:bg-blue-900 hover:bg-blue-500
+                                   duration-300 ease-in-out transition-all">
+                            <i class="fa fa-trash-arrow-up text-lg"></i>
+                            {{ __('Restore All') }}
+                        </button>
+                    </form>
+                    <form class="flex flex-row gap-2 items-center justify-end"
+                          action="{{ route('users.trash-empty') }}"
+                          method="post">
+                        @CSRF
+                        @method('delete')
+                        <button type="submit"
+                                class="p-2 px-4  text-center rounded-md
+                                   text-red-600 hover:text-red-200 dark:hover:text-red-900
+                                   bg-red-200 dark:bg-red-900 hover:bg-red-500
+                                   duration-300 ease-in-out transition-all">
+                            <i class="fa fa-trash text-lg"></i>
+                            Empty Trash
+                        </button>
+                    </form>
                 </section>
             </header>
 
@@ -42,7 +69,7 @@
                 <tr class="bg-gray-400 text-gray-800 py-2 rounded-lg ">
                     <th class="pl-2 flex-0 text-left">Name</th>
                     <th class="text-left">Email</th>
-                    <th class="text-left">Last Login</th>
+                    <th class="text-left">Deleted</th>
                     <th class="pr-2 text-right">Actions</th>
                 </tr>
                 </thead>
@@ -56,11 +83,11 @@
 
                         <td class="py-2 pl-2 flex-0 text-left">{{ $user->name }}</td>
                         <td class="py-2 text-left">{{ $user->email }}</td>
-                        <td class="py-2 text-left">{{ $user->updated_at }}</td>
-                        <td>
-                            <form action="{{ route('users.trash-remove', $user) }}"
-                                  method="POST"
-                                  class="py-2 pr-2 flex flex-row justify-end gap-4">
+                        <td class="py-2 text-left">{{ $user->deleted_at }}</td>
+                        <td class="py-2 pr-2 text-right">
+                            <form class="flex flex-row gap-2 items-center justify-end"
+                                  action="{{ route('users.trash-remove', $user) }}"
+                                  method="POST">
                                 @csrf
                                 @method('delete')
 

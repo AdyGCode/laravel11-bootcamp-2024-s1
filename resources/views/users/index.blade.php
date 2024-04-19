@@ -67,14 +67,15 @@
                                dark:text-gray-400">
 
                         <td class="py-2 pl-2 flex-0 text-left">{{ $user->name }}</td>
-                        <td class="py-2 text-left flex flex-col">{{ $user->email }}</td>
+                        <td class="py-2 text-left">{{ $user->email }}</td>
                         <td class="py-2 text-left">{{ $user->updated_at }}</td>
                         <td class="py-2 pr-2 text-right">
                             <form class="flex flex-row gap-2 items-center justify-end"
                                   action="{{ route('users.destroy', $user) }}"
                                   method="POST">
-                                @CSRF
-                                @method('DELETE')
+                                @csrf
+                                @method('delete')
+
                                 <a href="{{ route('users.show', $user) }}"
                                    class="p-1 w-10 text-center rounded-md
                                           text-blue-600 hover:text-blue-200 dark:hover:text-black bg-blue-200 dark:bg-black hover:bg-blue-500

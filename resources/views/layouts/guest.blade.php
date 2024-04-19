@@ -16,19 +16,43 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <!-- Scripts -->
-@vite(['resources/js/app.js', 'resources/css/app.css', ])
+    @vite(['resources/js/app.js', 'resources/css/app.css',])
 </head>
-<body class="font-sans text-gray-900 antialiased">
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div>
-        <a href="/">
-            <x-application-logo class="w-20 h-20 fill-current text-gray-500"/>
-        </a>
-    </div>
+<body class="bg-gray-100 font-sans text-gray-900 antialiased min-h-screen flex flex-col justify-start">
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+@include('layouts.dev-mode')
+
+{{--@include('layouts.navigation')--}}
+
+<!-- Page Heading -->
+@if (isset($header))
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+            {{ $header }}
+        </div>
+    </header>
+@endif
+
+<!-- Page Content -->
+<main class="bg-gray-100 dark:bg-gray-900 grow py-6">
+    <div class="grow max-w-7xl mx-auto
+                bg-white dark:bg-gray-900
+                border-gray-400 dark:border-gray-600
+                rounded rounded-lg
+                shadow shadow-lg ">
         {{ $slot }}
     </div>
-</div>
+</main>
+
+<!-- Page Heading -->
+@if (isset($header))
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+            {{ $header }}
+        </div>
+    </header>
+@endif
+
+@include('layouts.footer')
 </body>
 </html>

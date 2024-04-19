@@ -54,6 +54,25 @@ class UserSeeder extends Seeder
                 'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
             ],
 
+                        [
+                'id' => null, 'name' => 'Tim Burr', 'email' => 'Tim.Burr@example.com', 'email_verified_at' => null,
+                'password' => Hash::make('Password1'), 'created_at' => now(),
+            ],
+            [
+                'id' => null, 'name' => 'Dwight House', 'email' => 'Dwight.House@example.com',
+                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+            ],
+
+
+            [
+                'id' => null, 'name' => 'Isadora Bull', 'email' => 'Isadora.Bull@example.com',
+                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+            ],
+
+            [
+                'id' => null, 'name' => "Annie O'Problem", 'email' => 'Annie.OProblem@example.com',
+                'email_verified_at' => null, 'password' => Hash::make('Password1'), 'created_at' => now(),
+            ],
 
         ];
 

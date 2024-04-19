@@ -139,7 +139,7 @@ class UserController extends Controller
 
     public function trash()
     {
-        $users = User::onlyTrashed()->paginate(5);
+        $users = User::onlyTrashed()->orderBy('deleted_at')->paginate(5);
         return view('users.trash', compact(['users',]));
     }
 
@@ -161,5 +161,38 @@ class UserController extends Controller
         return redirect()
             ->back()
             ->withSuccess("Permanently Removed {$oldUser->name}.");
+    }
+
+       /**
+     * Restore all users in the trash to system
+     *
+     * @return RedirectResponse
+     */
+    public function recoverAll(): RedirectResponse
+    {
+        $users = User::onlyTrashed()->get();
+        $trashCount = $users->count();
+
+        foreach ($users as $user) {
+            $user->restore(); // This restores the soft-deleted user
+        }
+        return redirect(route('users.index'))
+            ->withSuccess("Successfully recovered {$trashCount} users.");
+    }
+
+    /**
+     * Permanently remove all users that are in the trash
+     *
+     * @return RedirectResponse
+     */
+    public function empty(): RedirectResponse
+    {
+        $users = User::onlyTrashed()->get();
+        $trashCount = $users->count();
+        foreach ($users as $user) {
+            $user->forceDelete(); // This restores the soft-deleted user
+        }
+        return redirect(route('users.trash'))
+            ->withSuccess("Successfully emptied trash of {$trashCount} users.");
     }
 }
