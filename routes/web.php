@@ -9,6 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -35,7 +36,6 @@ Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified'],);
 
 
-
 Route::middleware(['auth', 'verified',])->group(function () {
     // Trashed (Soft Deleted) users
     Route::get('users/trash', [UserController::class, 'trash'])
@@ -46,9 +46,9 @@ Route::middleware(['auth', 'verified',])->group(function () {
     Route::delete('users/{id}/trash/remove', [UserController::class, 'remove'])
         ->name('users.trash-remove');
     // all trashed users restore/remove
-    Route::post('users/trash/recover',[UserController::class, 'recoverAll'])
+    Route::post('users/trash/recover', [UserController::class, 'recoverAll'])
         ->name('users.trash-recover');
-    Route::delete('users/trash/empty',[UserController::class, 'empty'])
+    Route::delete('users/trash/empty', [UserController::class, 'empty'])
         ->name('users.trash-empty');
 
     Route::resource('users', UserController::class);
