@@ -22,11 +22,13 @@
     </section>
 
     <div class="max-w-2xl mx-auto p-2 mt-6 bg-white shadow-sm rounded-lg
-    divide-y">
+                divide-y">
         @foreach($chirps as $chirp)
-            <section class="p-6 flex space-x-8">
-                <p class="text-6xl bg-green-500 text-black rounded-full
-                w-16 text-center align-bottom">C</p>
+            <section class="p-6 flex space-x-4 items-center">
+                <p class="text-4xl p-2 min-w-16 bg-green-500 text-black rounded-full
+                          text-center items-center">
+                    {{ mb_substr( mb_strtoupper($chirp->user->name), 0, 1) }}
+                </p>
                 <div class="flex-1">
                     <div class="flex justify-between items-center">
                         <h5>
